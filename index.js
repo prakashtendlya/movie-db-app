@@ -15,6 +15,7 @@ app.listen(PORT, ()=> {console.log(`server running in port ${PORT}`)});
 
 // import routes
 const authRoute = require("./routes/auth");
+const movieRoute = require("./routes/movie")
 
 // env variable access
 // dotenv.config();
@@ -33,3 +34,4 @@ app.use(express.json(), cors());
 
 
 app.use("/", authRoute);
+app.use("/movie", movieRoute);
