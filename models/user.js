@@ -1,4 +1,3 @@
-const { date } = require("@hapi/joi/lib/template");
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
@@ -16,7 +15,7 @@ const userSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default: date.now()
+        default: Date.now()
     }
 });
 
