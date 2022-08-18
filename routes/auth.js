@@ -37,6 +37,7 @@ router.post("/register", async (req, res) => {
     try {
         const { error } = await RegisterSchema.validateAsync(req.body);
         try {
+            
             // if error send to user
             if(error) {
                 res.status(400).send({message: error.details[0].message});
