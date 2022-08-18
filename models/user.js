@@ -4,6 +4,7 @@ const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
+        index: true,
         min: 3,
         max: 255
     },
@@ -15,7 +16,7 @@ const userSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     }
 });
 
