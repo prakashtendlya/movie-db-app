@@ -6,7 +6,7 @@ const cors = require("cors");
 const PORT = process.env.PORT || 3200;
 
 app.get("/", (req, res) => {
-    res.send("success")
+    res.status(200).send({message: "success"});
 });
 
 app.listen(PORT, ()=> {console.log(`server running in port http://localhost:${PORT} 🚀`)});
@@ -17,8 +17,6 @@ app.listen(PORT, ()=> {console.log(`server running in port http://localhost:${PO
 const authRoute = require("./routes/auth");
 const movieRoute = require("./routes/movie")
 
-// env variable access
-// dotenv.config();
 
 // database connection
 mongoose .connect(process.env.DB_CONNECT, {
@@ -35,3 +33,5 @@ app.use(express.json(), cors());
 
 app.use("/", authRoute);
 app.use("/movie", movieRoute);
+
+module.exports = app;

@@ -50,18 +50,29 @@ B <-- query data --> D[(mongoDB)]
 npm install
 ```
 
-installs `axios` `jsonwebtoken`  `express` `bcryptjs` `@hapi/joi` `dotenv` `cors` `mongoose`
+installs `axios` `jsonwebtoken`  `express` `bcryptjs` `@hapi/joi` `dotenv` `cors` `mongoose` `mocha` `chai` `chai-http`
 
 ```json
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^10.0.0",
     "mongoose": "^6.5.2"
+  }
+```
+## scripts config
+
+```json
+"scripts": {
+    "start": "node index.js",
+    "test": "mocha spec/*.js --exit"
   }
 ```
 
@@ -96,9 +107,37 @@ server running in port http://localhost:3200 🚀
 Database connected!
 ```
 
+## Run unit tests
+
+uses jest for unit testing
+
+```bash
+npm test
+```
+
+The expected result should be similar to:
+
+```bash
+npm WARN config global `--global`, `--local` are deprecated. Use `--location=global` instead.
+
+> movie-db-app@1.0.0 test
+> mocha spec/*.js --exit
+
+server running in port http://localhost:3200 🚀
+
+
+  GET /
+    ✔ should return success...
+
+
+  1 passing (32ms)
+```
+
 ## Usage
 
 This service can be used to authenticate user using JSON web token.
+
+This Service can be used search movie by title/imdbID and query top rated movies for given year from mongoDB.
 
 ### Register user
 
