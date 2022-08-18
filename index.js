@@ -21,14 +21,14 @@ const movieRoute = require("./routes/movie")
 // dotenv.config();
 
 // database connection
-mongoose.connect(
-    process.env.DB_CONNECT,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    () => console.log("connected to db ")
-  );
+mongoose .connect(process.env.DB_CONNECT, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,})   
+  .then(() => console.log("Database connected!"))
+  .catch(err => console.log(err));
 
 
-// enable json output & disable cors
+// enable json output
 app.use(express.json(), cors());
 
 

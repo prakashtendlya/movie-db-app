@@ -85,7 +85,7 @@ router.post("/login", async (req, res) => {
       }
       else {
         //share token to be used
-        console.log("84"+process.env.TOKEN_SECRET)
+        console.log(process.env.TOKEN_SECRET)
         const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
         console.log(token);
         res.header("auth-token", token).send({token:token});
