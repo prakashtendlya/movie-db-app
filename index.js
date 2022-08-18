@@ -17,8 +17,6 @@ app.listen(PORT, ()=> {console.log(`server running in port http://localhost:${PO
 const authRoute = require("./routes/auth");
 const movieRoute = require("./routes/movie")
 
-// env variable access
-// dotenv.config();
 
 // database connection
 mongoose .connect(process.env.DB_CONNECT, {

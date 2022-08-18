@@ -99,10 +99,19 @@ router.get("/toprated", verify, async (req,res) => {
             .select('-__v');
 
         console.log(response);
-        res.status(200).send({data: response})
+        if(response.length > 0) {
+
+            // send moveis as array
+            res.status(200).send({data: response});
+        } else {
+
+            // No Movies found in database for the year
+            res.status(200).send({message: `No Movies found in database for year ${req.query.year}`});
+        }
+
     } else {
 
-        // year not fount in request
+        // year not found in request
         res.status(400).send({message: "BAD Request!"});
     }
 });
