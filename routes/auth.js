@@ -20,7 +20,7 @@ router.post("/register", async (req, res) => {
     if(userExist) {
 
         // user exists response
-        res.status(400).send("user already exists");
+        res.status(400).send({message: "user already exists"});
         return;
     }
 
@@ -36,19 +36,23 @@ router.post("/register", async (req, res) => {
 
     try {
         const { error } = await RegisterSchema.validateAsync(req.body);
-
-        // if error send to user
-        if(error) {
-            res.status(400).send(error.details[0].message);
-            return;
-        } else {
-
-            const saveUser = await user.save();
-            res.status(200).send("user registered");
-        }
+        try {
+            // if error send to user
+            if(error) {
+                res.status(400).send({message: error.details[0].message});
+                return;
+            } else {
+                const saveUser = await user.save();
+                res.status(200).send({message: "user registered"});
+            }
+        } catch(error) {
+            console.log(error);
+            res.status(500).send(error);
+        }        
+        
     } catch(error) {
         console.log(error);
-        res.status(500).send(error);
+        res.status(400).send(error);
     }
 });
 
@@ -67,13 +71,13 @@ router.post("/login", async (req, res) => {
       //check if user exists  
     const user = await User.findOne({ username: req.body.username });
     console.log(user)
-    if (!user) return res.status(400).send("Incorrect username");
+    if (!user) return res.status(400).send({message: "Incorrect username"});
   
     //verify password  
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     console.log(validPassword)
     if (!validPassword) {
-        return res.status(400).send("Incorrect Password");
+        return res.status(400).send({message: "Incorrect Password"});
     }
         
       //validation of login request
@@ -81,7 +85,7 @@ router.post("/login", async (req, res) => {
       const { error } = await loginSchema.validateAsync(req.body);
       console.log(error)
       if (error) {
-        return res.status(400).send(error.details[0].message);
+        return res.status(400).send({message: error.details[0].message});
       }
       else {
         //share token to be used
@@ -91,7 +95,7 @@ router.post("/login", async (req, res) => {
         res.header("auth-token", token).send({token:token});
       }
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).send({message: error});
     }
   });
 
